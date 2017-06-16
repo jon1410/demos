@@ -20,16 +20,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <orient.version>2.2.0</orient.version>
-        <destDir>${project.build.outputDirectory}/META-INF/resources/webjars/${project.artifactId}/${project.version}</destDir>
-        <studio.unpack.dir>${project.build.directory}/studio</studio.unpack.dir>
-        <requirejs>
-            {
-            "paths": {
-            "orientdb-studio": "orientdb-studio"
-            }
-            }
-        </requirejs>
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -52,6 +42,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
 
         <dependency>
             <groupId>org.webjars</groupId>
@@ -76,60 +67,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.10</version>
-                <executions>
-                    <execution>
-                        <id>extract orient-community distribution</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>com.orientechnologies</groupId>
-                                    <artifactId>orientdb-community</artifactId>
-                                    <version>${orient.version}</version>
-                                    <type>zip</type>
-                                </artifactItem>
-                            </artifactItems>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <includes>**/studio-*.zip</includes>
-                            <!-- other configurations here -->
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <echo message="unzip archive" />
-                                <unzip dest="${studio.unpack.dir}">
-                                    <fileset dir="${project.build.directory}">
-                                        <include name="**/studio-*.zip" />
-                                    </fileset>
-                                </unzip>
-                                <echo message="moving resources" />
-                                <move todir="${destDir}">
-                                    <fileset dir="${studio.unpack.dir}/www/" />
-                                </move>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

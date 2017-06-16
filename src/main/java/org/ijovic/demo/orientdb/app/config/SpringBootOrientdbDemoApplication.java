@@ -19,18 +19,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableTransactionManagement
 @ComponentScan("org.ijovic.demo")
 @EnableOrientRepositories("org.ijovic.demo.orientdb.repository")
-@EnableWebMvc
-public class SpringBootOrientdbDemoApplication extends WebMvcConfigurerAdapter{
+public class SpringBootOrientdbDemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootOrientdbDemoApplication.class, args);
-	}
-
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry
-				.addResourceHandler("/webjars/**")
-				.addResourceLocations("/webjars/", "classpath:/META-INF/resources/webjars/");
 	}
 
 }
